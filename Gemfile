@@ -67,6 +67,7 @@ gem "twitter-bootstrap-rails"
 gem 'toastr-rails'
 gem 'ckeditor'
 gem "paperclip"
+gem "unicorn"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
