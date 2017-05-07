@@ -67,6 +67,7 @@ gem "twitter-bootstrap-rails"
 gem 'toastr-rails'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "paperclip"
+gem "font-awesome-rails"
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
