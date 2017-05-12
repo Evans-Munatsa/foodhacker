@@ -3,6 +3,7 @@
   <div class="row">
     <% @products.each do |product| %>
     <div class="col-lg-8">
+     <h5>Written by: <span><%= product.user.email %></span></h5>
       <h4><%= product.name %></h4>
       <h5><%= product.food_type %></h5>
       <p><%= truncate(product.description, length: 250, escape: false) %></p>
@@ -13,4 +14,5 @@
   </div>
   <br>
   <%= link_to 'New Product', new_product_path, class: "btn btn-default" %>
-</div>
+</div
+

@@ -1,15 +1,9 @@
 class CommentsController < ApplicationController
   before_action :find_product
   before_action :find_comment, only: [:destroy]
+  
   def index
     @comments = Comment.all
-
-    if params[:id].blank?
-      @comments = Comment.all.order("created_at DESC")
-    else
-      @comments = Product.find(params[:id]).comment.order(:created_at)
-
-    end
   end
 
   def show

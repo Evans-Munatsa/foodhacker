@@ -3,14 +3,14 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    # @products = Product.all
+    @products = Product.all
 
-    if params[:product].blank?
-      @products = Product.all.order('created_at DESC')
-    else
-      @comment_id = Comment.find_by(body: params[:product]).id
-      @products = Product.where(product_id: @product_id).order("created_at DESC")   
-    end
+    # if params[:product].blank?
+    #   @products = Product.all.order('created_at DESC')
+    # else
+    #   @comment_id = Comment.find_by(body: params[:product]).id
+    #   @products = Product.where(product_id: @product_id).order("created_at DESC")
+    # end
   end
 
   def show
@@ -25,28 +25,25 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.new(product_params)
+    # @product = Product.new(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      flash[:notice] = "Product Created"
+      redirect_to @product
+    else
+      flash[:danger] = "Product not Created"
+      render 'new'
     end
   end
 
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      flash[:notice] = "Product was successfully updated."
+      redirect_to @product
+    else
+      flash[:notice] = "Product was not updated."
+      render 'edit'
     end
   end
 
@@ -59,11 +56,12 @@ class ProductsController < ApplicationController
   end
 
   private
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    def product_params
-      params.require(:product).permit(:name, :food_type, :description)
-    end
+
+  def product_params
+    params.require(:product).permit(:name, :food_type, :description, :user_id)
+  end
 end
