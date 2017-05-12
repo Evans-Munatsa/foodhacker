@@ -1,0 +1,44 @@
+<h2>Add a comment</h2>
+<%= simple_form_for([@product, @product.comments.build]) do |f| %>
+<div class="form-inputs">
+	<%= f.input :body, required: true, autofocus: true, class: 'form-control' %>
+</div>
+<div class="actions">
+	<%= f.submit %>
+</div>
+<% end %>
+
+<!-- comments -->
+<div class="row">
+	<div class="col-sm-8">
+		<% @comments.each do |comment| %>
+		<div class="panel panel-white post panel-shadow">
+			<div class="post-heading">
+				<div class="pull-left image">
+					<img src="http://bootdey.com/img/Content/user_1.jpg" class="img-circle avatar" alt="user profile image">
+				</div>
+				<div class="pull-left meta">
+					<div class="title h5">
+						<a href="#"><b>Ryan Haywood</b></a>
+						made a post.
+					</div>
+					<h6 class="text-muted time">1 minute ago</h6>
+				</div>
+			</div>
+			<div class="post-description">
+				<p><%= raw comment.body %></p>
+				<%= link_to "Edit", edit_product_comment_path(comment.product, comment),  class: "btn btn-info" %>
+				<%= link_to "Delete comment", [comment.product, comment], method: :delete, class: "btn btn-danger" %>
+				<div class="stats">
+					<a href="#" class="btn btn-default stat-item">
+						<i class="fa fa-thumbs-up icon"></i>2
+					</a>
+					<a href="#" class="btn btn-default stat-item">
+						<i class="fa fa-thumbs-down icon"></i>12
+					</a>
+				</div>
+			</div>
+		</div>
+		<% end %>
+	</div>
+</div>

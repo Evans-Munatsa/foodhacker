@@ -1,58 +1,52 @@
 class ProductsController < ApplicationController
+  # before_action :authenticate_user, only:[ :new, :edit, :update, :create, :destroy ]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  # GET /products
-  # GET /products.json
   def index
     @products = Product.all
+
+    # if params[:product].blank?
+    #   @products = Product.all.order('created_at DESC')
+    # else
+    #   @comment_id = Comment.find_by(body: params[:product]).id
+    #   @products = Product.where(product_id: @product_id).order("created_at DESC")
+    # end
   end
 
-  # GET /products/1
-  # GET /products/1.json
   def show
+    @comments = Comment.where(product_id: @product).order("created_at DESC")
   end
 
-  # GET /products/new
   def new
     @product = Product.new
   end
 
-  # GET /products/1/edit
   def edit
   end
 
-  # POST /products
-  # POST /products.json
   def create
-    @product = Product.new(product_params)
+    @product = current_user.products.new(product_params)
+    # @product = Product.new(product_params)
 
-    respond_to do |format|
-      if @product.save
-        format.html { redirect_to @product, notice: 'Product was successfully created.' }
-        format.json { render :show, status: :created, location: @product }
-      else
-        format.html { render :new }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.save
+      flash[:notice] = "Product Created"
+      redirect_to @product
+    else
+      flash[:danger] = "Product not Created"
+      render 'new'
     end
   end
 
-  # PATCH/PUT /products/1
-  # PATCH/PUT /products/1.json
   def update
-    respond_to do |format|
-      if @product.update(product_params)
-        format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-        format.json { render :show, status: :ok, location: @product }
-      else
-        format.html { render :edit }
-        format.json { render json: @product.errors, status: :unprocessable_entity }
-      end
+    if @product.update(product_params)
+      flash[:notice] = "Product was successfully updated."
+      redirect_to @product
+    else
+      flash[:notice] = "Product was not updated."
+      render 'edit'
     end
   end
 
-  # DELETE /products/1
-  # DELETE /products/1.json
   def destroy
     @product.destroy
     respond_to do |format|
@@ -62,13 +56,12 @@ class ProductsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
-    end
+  def set_product
+    @product = Product.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:name, :food_type, :description)
-    end
+
+  def product_params
+    params.require(:product).permit(:name, :food_type, :description, :user_id)
+  end
 end

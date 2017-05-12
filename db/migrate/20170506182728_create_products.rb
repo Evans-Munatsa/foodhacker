@@ -5,6 +5,8 @@ class CreateProducts < ActiveRecord::Migration[5.0]
       t.string :food_type
       t.text :description
 
+      t.integer :user_id, index: true, foreign_key: true
+
       t.timestamps
     end
   end

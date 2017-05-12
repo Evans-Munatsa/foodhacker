@@ -1,13 +1,22 @@
 <div class="container">
 	<div class="row">
 		<div class="col-lg-8">
-			<h4><%= @product.name %></h4>
+		    <h5>Written by: <span><%= @product.user.email %></span></h5>
+		    <div class="jumbotron">
+		    	<h4><%= @product.name %></h4>
 			<hr>
 			<h6><%= @product.food_type %></h6>
 			<br>
 			<p><%= raw @product.description %></p>
 			<%= link_to 'Edit', edit_product_path(@product), class: "btn btn-info" %> |
+			 <%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> |
 			<%= link_to 'Back', products_path, class: "btn btn-default" %>
+		    </div>
 		</div>
 	</div>
+</div>
+
+
+<div class="container">
+	<%= render 'comments', product: @product %>
 </div>
