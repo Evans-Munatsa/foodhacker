@@ -9,8 +9,10 @@
 			<h6><%= @product.food_type %></h6>
 			<br>
 			<p><%= raw @product.description %></p>
+			<% if current_user%>
 			<%= link_to 'Edit', edit_product_path(@product), class: "btn btn-info" %> |
 			 <%= link_to 'Destroy', @product, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %> |
+			 <% end %>
 			<%= link_to 'Back', products_path, class: "btn btn-default" %>
 		    </div>
 		</div>
