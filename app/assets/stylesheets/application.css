@@ -1904,7 +1904,7 @@
 
 		.flex.flex-3 article {
 			position: relative;
-			width: 28%;
+			width: 100%;
 		}
 
 			.flex.flex-3 article:before {
