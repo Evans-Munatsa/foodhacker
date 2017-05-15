@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+   before_action :authenticate_user!, only:[ :new, :edit, :update, :create, :destroy ]
   before_action :find_product
   before_action :find_comment, only: [:destroy]
   

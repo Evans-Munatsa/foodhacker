@@ -1,9 +1,9 @@
 class ProductsController < ApplicationController
-  # before_action :authenticate_user, only:[ :new, :edit, :update, :create, :destroy ]
+  before_action :authenticate_user!, only:[ :new, :edit, :update, :create, :destroy ]
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   def index
-    @products = Product.all
+    @products = Product.all.order('created_at DESC')
 
     # if params[:product].blank?
     #   @products = Product.all.order('created_at DESC')

@@ -4,6 +4,7 @@
     <% @products.each do |product| %>
     <div class="col-lg-8">
      <h5>Written by: <span><%= product.user.email %></span></h5>
+      <p>Posted:<%= time_ago_in_words(product.created_at) %> ago</p>
       <h4><%= product.name %></h4>
       <h5><%= product.food_type %></h5>
       <p><%= truncate(product.description, length: 250, escape: false) %></p>

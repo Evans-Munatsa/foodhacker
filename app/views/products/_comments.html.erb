@@ -19,10 +19,9 @@
 				</div>
 				<div class="pull-left meta">
 					<div class="title h5">
-						<a href="#"><b>Ryan Haywood</b></a>
-						made a post.
+						<h5>Comment by: <b><%= comment.user.email %></b></h5>
 					</div>
-					<h6 class="text-muted time">1 minute ago</h6>
+					<h6 class="text-muted time">Posted: <%= time_ago_in_words(comment.created_at) %> ago</h6>
 				</div>
 			</div>
 			<div class="post-description">

@@ -69,6 +69,7 @@ gem 'toastr-rails'
 gem 'ckeditor', github: 'galetahub/ckeditor'
 gem "paperclip"
 gem "font-awesome-rails"
+gem 'acts_as_votable'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
